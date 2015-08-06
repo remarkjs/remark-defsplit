@@ -15,6 +15,8 @@ module.exports = function () {
       forNode.apply(null, arguments);
     }(ast));
 
+    [].push.apply(ast.children, definitions);
+
     function forNode (node, index, siblings) {
       if (node.type == 'definition' || node.type == 'heading') {
         [].splice.apply(siblings, [index, 0].concat(definitions));
