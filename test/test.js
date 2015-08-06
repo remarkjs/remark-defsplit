@@ -12,21 +12,28 @@ test(function (t) {
   var input = readInput('wonders/wonders'),
       output = readOutput('wonders/wonders');
 
-  t.equal(mdast.use(defsplit).process(input), output, 'extracts destinations');
-  t.equal(mdast.use(defsplit).process(output), output, 'idempotence');
+  t.equal(process(input), output, 'extracts destinations');
+  t.equal(process(output), output, 'idempotence');
   t.end();
 });
 
 
 test('identifier clashes', function (t) {
-  t.equal(mdast.use(defsplit).process(readInput('clash/different-sections')),
+  t.equal(process(readInput('clash/different-sections')),
           readOutput('clash/different-sections'),
           'extracted definitions in different sections do not clash');
-  t.equal(mdast.use(defsplit).process(readInput('clash/other-definitions')),
+  t.equal(process(readInput('clash/other-definitions')),
           readOutput('clash/other-definitions'),
           'new-born definitions don\'t clash with existing ones');
+  t.equal(process(readInput('clash/reuse')), readOutput('clash/reuse'),
+          'reuse existing identifiers');
   t.end();
 });
+
+
+function process (src) {
+  return mdast.use(defsplit).process(src);
+}
 
 
 function readInput (test) {

@@ -7,7 +7,8 @@
 
 # section 2
 
-[![Build Status][travis-ci-3]][travis-ci-4]
+[![Build Status][christmas]][travis-ci-2]
 
-[travis-ci-3]: https://travis-ci.org/magician/new-wonders.svg?branch=master
-[travis-ci-4]: https://travis-ci.org/magician/new-wonders
+# section 3
+
+[christmas]: https://travis-ci.org/magician/wonders.svg?branch=christmas
