@@ -11,6 +11,36 @@ Extract inline link/image destinations as separate definitions.
 [david]: https://david-dm.org/eush77/mdast-defsplit
 [david-badge]: https://david-dm.org/eush77/mdast-defsplit.png
 
+## Example
+
+```
+$ travisjs badge
+[![Build Status](https://travis-ci.org/eush77/mdast-defsplit.svg?branch=master)](https://travis-ci.org/eush77/mdast-defsplit)
+
+$ travisjs badge | mdast --use mdast-defsplit
+[![Build Status][travis-ci-1]][travis-ci-2]
+
+[travis-ci-1]: https://travis-ci.org/eush77/mdast-defsplit.svg?branch=master
+
+[travis-ci-2]: https://travis-ci.org/eush77/mdast-defsplit
+```
+
+## API
+
+With [mdast](https://github.com/wooorm/mdast) do:
+
+```
+mdast.use(mdastDefsplit).process(src)
+```
+
+## CLI
+
+With [mdast](https://github.com/wooorm/mdast) do:
+
+```
+mdast --use mdast-defsplit </path/to/src
+```
+
 ## Install
 
 ```
