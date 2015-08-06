@@ -16,13 +16,15 @@ Extract inline link/image destinations as separate definitions.
 ```
 $ travisjs badge
 [![Build Status](https://travis-ci.org/eush77/mdast-defsplit.svg?branch=master)](https://travis-ci.org/eush77/mdast-defsplit)
+```
 
-$ travisjs badge | mdast --use mdast-defsplit
-[![Build Status][travis-ci-1]][travis-ci-2]
+```
+$ travisjs badge | mdast --use mdast-defsplit='id:["travis-badge","travis"]'
+[![Build Status][travis-badge]][travis]
 
-[travis-ci-1]: https://travis-ci.org/eush77/mdast-defsplit.svg?branch=master
+[travis-badge]: https://travis-ci.org/eush77/mdast-defsplit.svg?branch=master
 
-[travis-ci-2]: https://travis-ci.org/eush77/mdast-defsplit
+[travis]: https://travis-ci.org/eush77/mdast-defsplit
 ```
 
 ## API
@@ -30,15 +32,22 @@ $ travisjs badge | mdast --use mdast-defsplit
 With [mdast](https://github.com/wooorm/mdast) do:
 
 ```
-mdast.use(mdastDefsplit).process(src)
+mdast.use(mdastDefsplit, [options]).process(src)
 ```
+
+#### options.id
+
+Type: `String | [String]` <br>
+Default: `[]`
+
+Array of identifiers to use for new definitions in place of auto-generated ones.
 
 ## CLI
 
 With [mdast](https://github.com/wooorm/mdast) do:
 
 ```
-mdast --use mdast-defsplit </path/to/src
+mdast --use mdast-defsplit[=options] </path/to/src
 ```
 
 ## Install

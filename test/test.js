@@ -31,8 +31,18 @@ test('identifier clashes', function (t) {
 });
 
 
-function process (src) {
-  return mdast.use(defsplit).process(src);
+test('options.id', function (t) {
+  t.equal(process(readInput('options/id-multi'),
+                  { id: ['travis-badge', 'travis'] }),
+          readOutput('options/id-multi'), 'works with array of values');
+  t.equal(process(readInput('options/id-single'), { id: 'travis-ci-0' }),
+          readOutput('options/id-single'), 'works with a single value');
+  t.end();
+});
+
+
+function process (src, opts) {
+  return mdast.use(defsplit, opts).process(src);
 }
 
 

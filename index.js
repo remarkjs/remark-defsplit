@@ -7,7 +7,14 @@ var url = require('url'),
     path = require('path');
 
 
-module.exports = function () {
+module.exports = function (_, opts) {
+  opts = opts || {};
+  opts.id = (opts.id
+             ? (Array.isArray(opts.id)
+                ? opts.id.map(String)
+                : [String(opts.id)])
+             : []);
+
   return function (ast) {
     var definitions = Definitions(ast);
     var newDefinitions = [];
@@ -54,9 +61,13 @@ module.exports = function () {
         return identifier;
       }
 
-      var host = urlHost(link);
-      hostCount[host] |= 0;
-      while (definitions.byId(identifier = host + '-' + ++hostCount[host]).length);
+      if (!(identifier = opts.id.shift())) {
+        var host = urlHost(link);
+        hostCount[host] |= 0;
+        do {
+          identifier = host + '-' + ++hostCount[host];
+        } while (definitions.byId(identifier).length);
+      }
 
       var newDefinition = {
         type: 'definition',
