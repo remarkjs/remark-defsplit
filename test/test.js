@@ -22,6 +22,9 @@ test('identifier clashes', function (t) {
   t.equal(mdast.use(defsplit).process(readInput('clash/different-sections')),
           readOutput('clash/different-sections'),
           'extracted definitions in different sections do not clash');
+  t.equal(mdast.use(defsplit).process(readInput('clash/other-definitions')),
+          readOutput('clash/other-definitions'),
+          'new-born definitions don\'t clash with existing ones');
   t.end();
 });
 

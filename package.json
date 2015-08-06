@@ -34,7 +34,8 @@
     "url"
   ],
   "dependencies": {
-    "flatmap": "0.0.3"
+    "flatmap": "0.0.3",
+    "mdast-util-definitions": "^0.1.0"
   },
   "devDependencies": {
     "mdast": "^0.28.0",

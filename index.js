@@ -1,6 +1,7 @@
 'use strict';
 
-var flatmap = require('flatmap');
+var flatmap = require('flatmap'),
+    mdastDefinitions = require('mdast-util-definitions');
 
 var url = require('url'),
     path = require('path');
@@ -8,6 +9,7 @@ var url = require('url'),
 
 module.exports = function () {
   return function (ast) {
+    var define = mdastDefinitions(ast);
     var definitions = [];
     var hostCount = {};
 
@@ -54,7 +56,7 @@ module.exports = function () {
 
       var host = urlHost(link);
       hostCount[host] |= 0;
-      identifier = host + '-' + ++hostCount[host];
+      while (define(identifier = host + '-' + ++hostCount[host]));
 
       definitions.push({
         type: 'definition',
