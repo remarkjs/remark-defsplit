@@ -1,0 +1,41 @@
+{
+  "name": "mdast-defsplit",
+  "version": "0.0.0",
+  "description": "Extract inline link/image destinations as separate definitions",
+  "author": "Eugene Sharygin <eush77@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "homepage": "https://github.com/eush77/mdast-defsplit",
+  "repository": "eush77/mdast-defsplit",
+  "bugs": {
+    "url": "https://github.com/eush77/mdast-defsplit/issues"
+  },
+  "keywords": [
+    "definition",
+    "destination",
+    "extract",
+    "full",
+    "http",
+    "https",
+    "image",
+    "link",
+    "markdown",
+    "mdast",
+    "plugin",
+    "reference",
+    "split",
+    "target",
+    "uri",
+    "url"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "mdast": "^0.28.0",
+    "tape": "^4.0.2"
+  }
+}
