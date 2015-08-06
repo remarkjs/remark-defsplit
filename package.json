@@ -33,7 +33,9 @@
     "uri",
     "url"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "flatmap": "0.0.3"
+  },
   "devDependencies": {
     "mdast": "^0.28.0",
     "tape": "^4.0.2"

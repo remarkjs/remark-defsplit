@@ -1,5 +1,7 @@
 'use strict';
 
+var flatmap = require('flatmap');
+
 var url = require('url'),
     path = require('path');
 
@@ -7,21 +9,22 @@ var url = require('url'),
 module.exports = function () {
   return function (ast) {
     var definitions = [];
+    var hostCount = {};
 
     (function postorder (node) {
       if (node.children) {
-        node.children.forEach(postorder);
+        node.children = flatmap(node.children, postorder);
       }
-      forNode.apply(null, arguments);
+      return forNode.apply(null, arguments) || node;
     }(ast));
 
     [].push.apply(ast.children, definitions);
 
-    function forNode (node, index, siblings) {
+    function forNode (node) {
       if (node.type == 'definition' || node.type == 'heading') {
-        [].splice.apply(siblings, [index, 0].concat(definitions));
+        var nodes = definitions.concat(node);
         definitions.length = 0;
-        return;
+        return nodes;
       }
 
       var linkKey = { link: 'href', image: 'src' }[node.type];
@@ -36,25 +39,26 @@ module.exports = function () {
     }
 
     function identifier (link, title) {
-      var identifier,
-          hostCount = 1,
-          host = urlHost(link);
+      var identifier;
 
       var defined = definitions.some(function (def) {
         if (def.link == link && def.title == title) {
           identifier = def.identifier;
           return true;
         }
-        hostCount += urlHost(def.link) == host;
       });
 
       if (defined) {
         return identifier;
       }
 
+      var host = urlHost(link);
+      hostCount[host] |= 0;
+      identifier = host + '-' + ++hostCount[host];
+
       definitions.push({
         type: 'definition',
-        identifier: identifier = host + '-' + hostCount,
+        identifier: identifier,
         title: title,
         link: link
       });
