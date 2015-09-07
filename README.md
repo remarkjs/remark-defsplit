@@ -50,6 +50,12 @@ With [mdast](https://github.com/wooorm/mdast) do:
 mdast --use mdast-defsplit[=options] </path/to/src
 ```
 
+## Related
+
+- [mdast-reference-links] — practically the same, but with numerical identifiers instead of uri-based ones.
+
+[mdast-reference-links]: https://github.com/wooorm/mdast-reference-links
+
 ## Install
 
 ```
