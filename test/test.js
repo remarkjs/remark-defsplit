@@ -27,6 +27,9 @@ test('identifier clashes', function (t) {
           'new-born definitions don\'t clash with existing ones');
   t.equal(process(readInput('clash/reuse')), readOutput('clash/reuse'),
           'reuse existing identifiers');
+  t.equal(process(readInput('clash/object-prototype-props')),
+          readOutput('clash/object-prototype-props'),
+          'no clashes with Object.prototype property names');
   t.end();
 });
 
@@ -37,6 +40,10 @@ test('options.id', function (t) {
           readOutput('options/id-multi'), 'works with array of values');
   t.equal(process(readInput('options/id-single'), { id: 'travis-ci-0' }),
           readOutput('options/id-single'), 'works with a single value');
+  t.equal(process(readInput('options/object-prototype-props'),
+                  { id: ['__proto__', 'constructor'] }),
+          readOutput('options/object-prototype-props'),
+          'works with Object.prototype property names');
   t.end();
 });
 
