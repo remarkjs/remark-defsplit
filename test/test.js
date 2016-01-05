@@ -3,7 +3,7 @@
 var defsplit = require('..');
 
 var test = require('tape'),
-    mdast = require('mdast');
+    remark = require('remark');
 
 var fs = require('fs');
 
@@ -42,7 +42,7 @@ test('options.id', function (t) {
 
 
 function process (src, opts) {
-  return mdast.use(defsplit, opts).process(src);
+  return remark.use(defsplit, opts).process(src);
 }
 
 
@@ -53,8 +53,8 @@ function readInput (test) {
 
 function readOutput (test) {
   // Normalize style.
-  return mdast.process(fs.readFileSync(dataFile(test + '-output'),
-                                       { encoding: 'utf8' }));
+  return remark.process(fs.readFileSync(dataFile(test + '-output'),
+                                        { encoding: 'utf8' }));
 }
 
 
