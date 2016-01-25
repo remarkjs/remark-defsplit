@@ -1,7 +1,7 @@
 'use strict';
 
 var flatmap = require('flatmap'),
-    visit = require('unist-util-visit');
+    Index = require('unist-util-index');
 
 var url = require('url'),
     path = require('path');
@@ -16,7 +16,10 @@ module.exports = function (_, opts) {
              : []);
 
   return function (ast) {
-    var definitions = Definitions(ast);
+    var definitionsById = Index(ast, 'definition', function (definition) {
+      return definition.identifier.toLowerCase();
+    });
+    var definitionsByLink = Index(ast, 'definition', 'link');
     var newDefinitions = [];
     var hostCount = Object.create(null);
 
@@ -50,7 +53,7 @@ module.exports = function (_, opts) {
     function identifier (link, title) {
       var identifier;
 
-      var found = definitions.byLink(link).some(function (def) {
+      var found = definitionsByLink.get(link).some(function (def) {
         if (def.title == title) {
           identifier = def.identifier;
           return true;
@@ -66,7 +69,7 @@ module.exports = function (_, opts) {
         hostCount[host] |= 0;
         do {
           identifier = host + '-' + ++hostCount[host];
-        } while (definitions.byId(identifier).length);
+        } while (definitionsById.get(identifier).length);
       }
 
       var newDefinition = {
@@ -77,37 +80,13 @@ module.exports = function (_, opts) {
       };
 
       newDefinitions.push(newDefinition);
-      definitions.add(newDefinition);
+      definitionsById.add(newDefinition);
+      definitionsByLink.add(newDefinition);
 
       return identifier;
     }
   };
 };
-
-
-function Definitions (ast) {
-  var definitionsById = Object.create(null),
-      definitionsByLink = Object.create(null);
-
-  var assocPut = function (collection, key, value) {
-    collection[key] = collection[key] || [];
-    collection[key].push(value);
-  };
-
-  var add = function (definition) {
-    assocPut(definitionsById, definition.identifier.toLowerCase(), definition);
-    assocPut(definitionsByLink, definition.link, definition);
-  };
-
-  // If there are several matching definitions, the first one takes precedence.
-  visit(ast, 'definition', add, true);
-
-  return {
-    add: add,
-    byId: function (id) { return definitionsById[id.toLowerCase()] || [] },
-    byLink: function (link) { return definitionsByLink[link] || [] }
-  };
-}
 
 
 function urlHost (link) {
