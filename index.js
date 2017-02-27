@@ -7,7 +7,7 @@ var url = require('url'),
     path = require('path');
 
 
-module.exports = function (_, opts) {
+module.exports = function (opts) {
   opts = opts || {};
   opts.id = (opts.id
              ? (Array.isArray(opts.id)
@@ -19,7 +19,7 @@ module.exports = function (_, opts) {
     var definitionsById = Index(ast, 'definition', function (definition) {
       return definition.identifier.toLowerCase();
     });
-    var definitionsByLink = Index(ast, 'definition', 'link');
+    var definitionsByLink = Index(ast, 'definition', 'url');
     var newDefinitions = [];
     var hostCount = Object.create(null);
 
@@ -39,14 +39,13 @@ module.exports = function (_, opts) {
         return nodes;
       }
 
-      var linkKey = { link: 'href', image: 'src' }[node.type];
-      if (!linkKey) return;
+      if (node.type !== 'link' && node.type !== 'image') return;
 
       node.type += 'Reference';
       node.referenceType = 'full';
-      node.identifier = identifier(node[linkKey], node.title);
+      node.identifier = identifier(node.url, node.title);
 
-      delete node[linkKey];
+      delete node.url;
       delete node.title;
     }
 
@@ -76,7 +75,7 @@ module.exports = function (_, opts) {
         type: 'definition',
         identifier: identifier,
         title: title,
-        link: link
+        url: link
       };
 
       newDefinitions.push(newDefinition);

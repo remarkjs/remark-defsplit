@@ -49,7 +49,7 @@ test('options.id', function (t) {
 
 
 function process (src, opts) {
-  return remark.use(defsplit, opts).process(src);
+  return remark().use(defsplit, opts).processSync(src).toString();
 }
 
 
@@ -60,8 +60,8 @@ function readInput (test) {
 
 function readOutput (test) {
   // Normalize style.
-  return remark.process(fs.readFileSync(dataFile(test + '-output'),
-                                        { encoding: 'utf8' }));
+  return remark().processSync(fs.readFileSync(dataFile(test + '-output'),
+                                        { encoding: 'utf8' })).toString();
 }
 
 

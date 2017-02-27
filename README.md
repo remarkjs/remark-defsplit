@@ -32,7 +32,7 @@ $ travisjs badge | remark --use remark-defsplit='id:["travis-badge","travis"]'
 With [remark](https://github.com/wooorm/remark) do:
 
 ```
-remark.use(remarkDefsplit, [options]).process(src)
+remark().use(remarkDefsplit, [options]).processSync(src)
 ```
 
 #### options.id
