@@ -52,9 +52,15 @@ remark --use remark-defsplit[=options] </path/to/src
 
 ## Related
 
-- [remark-reference-links] — practically the same, but with numerical identifiers instead of uri-based ones.
+*   [`remark-reference-links`][remark-reference-links]
+    — Practically the same as `remark-defsplit`, but with numeric identifiers
+    instead of URI-based ones
+*   [`remark-inline-links`][remark-inline-links]
+    — Reverse, thus rewriting references and definitions into normal links
+      and images
 
 [remark-reference-links]: https://github.com/wooorm/remark-reference-links
+[remark-inline-links]: https://github.com/wooorm/remark-inline-links
 
 ## Install
 
