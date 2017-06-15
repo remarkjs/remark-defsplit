@@ -36,7 +36,7 @@
   ],
   "dependencies": {
     "flatmap": "0.0.3",
-    "unist-util-index": "^0.1.0"
+    "unist-util-index": "^1.0.0"
   },
   "devDependencies": {
     "remark": "^7.0.0",
