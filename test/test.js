@@ -48,6 +48,14 @@ test('options.id', function (t) {
 });
 
 
+test('local links', function (t) {
+  t.equal(process(readInput('local/example')),
+          readOutput('local/example'),
+          'should support links to local things');
+  t.end();
+});
+
+
 function process (src, opts) {
   return remark().use(defsplit, opts).processSync(src).toString();
 }

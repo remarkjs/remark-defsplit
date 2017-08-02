@@ -67,7 +67,7 @@ module.exports = function (opts) {
         var host = urlHost(link);
         hostCount[host] |= 0;
         do {
-          identifier = host + '-' + ++hostCount[host];
+          identifier = (host ? host + '-' : '') + ++hostCount[host];
         } while (definitionsById.get(identifier).length);
       }
 
@@ -89,5 +89,6 @@ module.exports = function (opts) {
 
 
 function urlHost (link) {
-  return path.parse(url.parse(link).host).name;
+  var host = url.parse(link).host;
+  return host ? path.parse(host).name : '';
 }
