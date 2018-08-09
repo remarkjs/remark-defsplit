@@ -35,7 +35,6 @@
     "url"
   ],
   "dependencies": {
-    "flatmap": "0.0.3",
     "unist-util-index": "^1.0.0"
   },
   "devDependencies": {

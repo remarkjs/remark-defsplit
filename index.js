@@ -1,11 +1,11 @@
 'use strict';
 
-var flatmap = require('flatmap'),
-    Index = require('unist-util-index');
+var Index = require('unist-util-index');
 
 var url = require('url'),
     path = require('path');
 
+var concat = [].concat
 
 module.exports = function (opts) {
   opts = opts || {};
@@ -25,7 +25,7 @@ module.exports = function (opts) {
 
     (function postorder (node) {
       if (node.children) {
-        node.children = flatmap(node.children, postorder);
+        node.children = concat.apply([], node.children.map(postorder));
       }
       return forNode.apply(null, arguments) || node;
     }(ast));
