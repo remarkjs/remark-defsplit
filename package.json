@@ -39,7 +39,7 @@
     "unist-util-index": "^1.0.0"
   },
   "devDependencies": {
-    "remark": "^8.0.0",
+    "remark": "^9.0.0",
     "tape": "^4.0.2"
   }
 }
