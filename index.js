@@ -1,94 +1,102 @@
-'use strict';
+'use strict'
 
-var Index = require('unist-util-index');
-
-var url = require('url'),
-    path = require('path');
+var url = require('url')
+var path = require('path')
+var Index = require('unist-util-index')
 
 var concat = [].concat
+var push = [].push
 
-module.exports = function (opts) {
-  opts = opts || {};
-  opts.id = (opts.id
-             ? (Array.isArray(opts.id)
-                ? opts.id.map(String)
-                : [String(opts.id)])
-             : []);
+module.exports = defsplit
 
-  return function (ast) {
-    var definitionsById = Index(ast, 'definition', function (definition) {
-      return definition.identifier.toLowerCase();
-    });
-    var definitionsByLink = Index(ast, 'definition', 'url');
-    var newDefinitions = [];
-    var hostCount = Object.create(null);
+function defsplit(opts) {
+  var id = (opts || {}).id || []
+  var ids = (typeof id === 'object' && 'length' in id ? id : [id]).map(String)
 
-    (function postorder (node) {
+  return transform
+
+  function transform(ast) {
+    var definitionsById = new Index(ast, 'definition', 'identifier')
+    var definitionsByUrl = new Index(ast, 'definition', 'url')
+    var definitions = []
+    var hosts = Object.create(null)
+
+    postorder(ast)
+
+    push.apply(ast.children, definitions)
+
+    function postorder(node) {
+      var nodes
+
       if (node.children) {
-        node.children = concat.apply([], node.children.map(postorder));
-      }
-      return forNode.apply(null, arguments) || node;
-    }(ast));
-
-    [].push.apply(ast.children, newDefinitions);
-
-    function forNode (node) {
-      if (node.type == 'definition' || node.type == 'heading') {
-        var nodes = newDefinitions.concat(node);
-        newDefinitions.length = 0;
-        return nodes;
+        node.children = concat.apply([], node.children.map(postorder))
       }
 
-      if (node.type !== 'link' && node.type !== 'image') return;
+      if (node.type === 'definition' || node.type === 'heading') {
+        nodes = definitions.concat(node)
+        definitions = []
+        return nodes
+      }
 
-      node.type += 'Reference';
-      node.referenceType = 'full';
-      node.identifier = identifier(node.url, node.title);
+      if (node.type === 'link' || node.type === 'image') {
+        node.type += 'Reference'
+        node.referenceType = 'full'
+        node.identifier = identifier(node.url, node.title)
 
-      delete node.url;
-      delete node.title;
+        delete node.url
+        delete node.title
+      }
+
+      return node
     }
 
-    function identifier (link, title) {
-      var identifier;
-
-      var found = definitionsByLink.get(link).some(function (def) {
-        if (def.title == title) {
-          identifier = def.identifier;
-          return true;
-        }
-      });
+    function identifier(link, title) {
+      var identifier = null
+      var found = definitionsByUrl.get(link).some(some)
+      var host
+      var definition
 
       if (found) {
-        return identifier;
+        return identifier
       }
 
-      if (!(identifier = opts.id.shift())) {
-        var host = urlHost(link);
-        hostCount[host] |= 0;
+      identifier = ids.shift()
+
+      if (!identifier) {
+        host = urlHost(link)
+        hosts[host] |= 0
+
         do {
-          identifier = (host ? host + '-' : '') + ++hostCount[host];
-        } while (definitionsById.get(identifier).length);
+          identifier = (host ? host + '-' : '') + ++hosts[host]
+        } while (definitionsById.get(identifier).length)
       }
 
-      var newDefinition = {
+      definition = {
         type: 'definition',
         identifier: identifier,
         title: title,
         url: link
-      };
+      }
 
-      newDefinitions.push(newDefinition);
-      definitionsById.add(newDefinition);
-      definitionsByLink.add(newDefinition);
+      definitions.push(definition)
+      definitionsById.add(definition)
+      definitionsByUrl.add(definition)
 
-      return identifier;
+      return identifier
+
+      function some(def) {
+        if (def.title === title) {
+          identifier = def.identifier
+          return true
+        }
+
+        return false
+      }
     }
-  };
-};
+  }
+}
 
-
-function urlHost (link) {
-  var host = url.parse(link).host;
-  return host ? path.parse(host).name : '';
+function urlHost(link) {
+  var host = url.parse(link).host
+  return host ? path.parse(host).name : ''
 }

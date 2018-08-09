@@ -1,78 +1,90 @@
-'use strict';
+'use strict'
 
-var defsplit = require('..');
+var fs = require('fs')
+var path = require('path')
+var test = require('tape')
+var remark = require('remark')
+var defsplit = require('..')
 
-var test = require('tape'),
-    remark = require('remark');
+test('remark-defsplit', function(t) {
+  t.equal(
+    process(readInput('wonders/wonders')),
+    readOutput('wonders/wonders'),
+    'extracts destinations'
+  )
 
-var fs = require('fs');
+  t.equal(
+    process(readOutput('wonders/wonders')),
+    readOutput('wonders/wonders'),
+    'idempotence'
+  )
 
+  t.equal(
+    process(readInput('clash/different-sections')),
+    readOutput('clash/different-sections'),
+    'extracted definitions in different sections do not clash'
+  )
 
-test(function (t) {
-  var input = readInput('wonders/wonders'),
-      output = readOutput('wonders/wonders');
+  t.equal(
+    process(readInput('clash/other-definitions')),
+    readOutput('clash/other-definitions'),
+    'new-born definitions don’t clash with existing identifiers'
+  )
 
-  t.equal(process(input), output, 'extracts destinations');
-  t.equal(process(output), output, 'idempotence');
-  t.end();
-});
+  t.equal(
+    process(readInput('clash/reuse')),
+    readOutput('clash/reuse'),
+    'identifier reuses existing identifiers'
+  )
 
+  t.equal(
+    process(readInput('clash/object-prototype-props')),
+    readOutput('clash/object-prototype-props'),
+    'identifier doesn’t clash with Object.prototype property names'
+  )
 
-test('identifier clashes', function (t) {
-  t.equal(process(readInput('clash/different-sections')),
-          readOutput('clash/different-sections'),
-          'extracted definitions in different sections do not clash');
-  t.equal(process(readInput('clash/other-definitions')),
-          readOutput('clash/other-definitions'),
-          'new-born definitions don\'t clash with existing ones');
-  t.equal(process(readInput('clash/reuse')), readOutput('clash/reuse'),
-          'reuse existing identifiers');
-  t.equal(process(readInput('clash/object-prototype-props')),
-          readOutput('clash/object-prototype-props'),
-          'no clashes with Object.prototype property names');
-  t.end();
-});
+  t.equal(
+    process(readInput('options/id-multi'), {id: ['travis-badge', 'travis']}),
+    readOutput('options/id-multi'),
+    '`options.id` works with array of values'
+  )
 
+  t.equal(
+    process(readInput('options/id-single'), {id: 'travis-ci-0'}),
+    readOutput('options/id-single'),
+    '`options.id` works with a single value'
+  )
 
-test('options.id', function (t) {
-  t.equal(process(readInput('options/id-multi'),
-                  { id: ['travis-badge', 'travis'] }),
-          readOutput('options/id-multi'), 'works with array of values');
-  t.equal(process(readInput('options/id-single'), { id: 'travis-ci-0' }),
-          readOutput('options/id-single'), 'works with a single value');
-  t.equal(process(readInput('options/object-prototype-props'),
-                  { id: ['__proto__', 'constructor'] }),
-          readOutput('options/object-prototype-props'),
-          'works with Object.prototype property names');
-  t.end();
-});
+  t.equal(
+    process(readInput('options/object-prototype-props'), {
+      id: ['__proto__', 'constructor']
+    }),
+    readOutput('options/object-prototype-props'),
+    '`options.id` works with Object.prototype property names'
+  )
 
+  t.equal(
+    process(readInput('local/example')),
+    readOutput('local/example'),
+    'should support links to local things'
+  )
 
-test('local links', function (t) {
-  t.equal(process(readInput('local/example')),
-          readOutput('local/example'),
-          'should support links to local things');
-  t.end();
-});
+  t.end()
+})
 
-
-function process (src, opts) {
-  return remark().use(defsplit, opts).processSync(src).toString();
+function process(src, opts) {
+  return remark()
+    .use(defsplit, opts)
+    .processSync(src)
+    .toString()
 }
 
-
-function readInput (test) {
-  return fs.readFileSync(dataFile(test), { encoding: 'utf8' });
+function readInput(fp) {
+  return fs.readFileSync(path.join(__dirname, 'data', fp + '.md'))
 }
 
-
-function readOutput (test) {
-  // Normalize style.
-  return remark().processSync(fs.readFileSync(dataFile(test + '-output'),
-                                        { encoding: 'utf8' })).toString();
-}
-
-
-function dataFile (test) {
-  return __dirname + '/data/' + test + '.md';
+function readOutput(fp) {
+  return remark()
+    .processSync(readInput(fp + '-output'))
+    .toString()
 }

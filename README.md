@@ -2,23 +2,19 @@
 
 # remark-defsplit
 
-[![Build Status][travis-badge]][travis] [![Dependency Status][david-badge]][david]
+[![Build Status][travis-badge]][travis]
+[![Dependency Status][david-badge]][david]
 
 Extract inline link/image destinations as separate definitions.
 
-[travis]: https://travis-ci.org/eush77/remark-defsplit
-[travis-badge]: https://travis-ci.org/eush77/remark-defsplit.svg
-[david]: https://david-dm.org/eush77/remark-defsplit
-[david-badge]: https://david-dm.org/eush77/remark-defsplit.png
-
 ## Example
 
-```
+```bash
 $ travisjs badge
 [![Build Status](https://travis-ci.org/eush77/remark-defsplit.svg?branch=master)](https://travis-ci.org/eush77/remark-defsplit)
 ```
 
-```
+```bash
 $ travisjs badge | remark --use remark-defsplit='id:["travis-badge","travis"]'
 [![Build Status][travis-badge]][travis]
 
@@ -31,13 +27,13 @@ $ travisjs badge | remark --use remark-defsplit='id:["travis-badge","travis"]'
 
 With [remark](https://github.com/wooorm/remark) do:
 
-```
+```javascript
 remark().use(remarkDefsplit, [options]).processSync(src)
 ```
 
 #### options.id
 
-Type: `String | [String]` <br>
+Type: `String | [String]`.
 Default: `[]`
 
 Array of identifiers to use for new definitions in place of auto-generated ones.
@@ -46,7 +42,7 @@ Array of identifiers to use for new definitions in place of auto-generated ones.
 
 With [remark](https://github.com/wooorm/remark) do:
 
-```
+```sh
 remark --use remark-defsplit[=options] </path/to/src
 ```
 
@@ -59,15 +55,24 @@ remark --use remark-defsplit[=options] </path/to/src
     — Reverse, thus rewriting references and definitions into normal links
       and images
 
-[remark-reference-links]: https://github.com/wooorm/remark-reference-links
-[remark-inline-links]: https://github.com/wooorm/remark-inline-links
-
 ## Install
 
-```
+```sh
 npm install remark-defsplit
 ```
 
 ## License
 
 MIT
+
+[travis]: https://travis-ci.org/eush77/remark-defsplit
+
+[travis-badge]: https://travis-ci.org/eush77/remark-defsplit.svg
+
+[david]: https://david-dm.org/eush77/remark-defsplit
+
+[david-badge]: https://david-dm.org/eush77/remark-defsplit.png
+
+[remark-reference-links]: https://github.com/wooorm/remark-reference-links
+
+[remark-inline-links]: https://github.com/wooorm/remark-inline-links
