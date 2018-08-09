@@ -38,6 +38,12 @@ test('remark-defsplit', function(t) {
   )
 
   t.equal(
+    process(readInput('clash/reuse-title-mismatch')),
+    readOutput('clash/reuse-title-mismatch'),
+    'identifier reuses existing identifiers does not clash with titles'
+  )
+
+  t.equal(
     process(readInput('clash/object-prototype-props')),
     readOutput('clash/object-prototype-props'),
     'identifier doesn’t clash with Object.prototype property names'
