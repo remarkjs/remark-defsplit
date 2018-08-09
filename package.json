@@ -45,7 +45,7 @@
   },
   "scripts": {
     "format": "remark *.md -qfo && prettier --write \"**/*.js\" && xo --fix",
-    "test-api": "node test/test",
+    "test-api": "node test",
     "test": "npm run format && npm run test-api"
   },
   "prettier": {
