@@ -1,6 +1,6 @@
 {
   "name": "remark-defsplit",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Extract inline link/image destinations as separate definitions",
   "license": "MIT",
   "keywords": [
