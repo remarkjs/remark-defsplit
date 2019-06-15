@@ -15,15 +15,15 @@ function defsplit(opts) {
 
   return transform
 
-  function transform(ast) {
-    var definitionsById = new Index(ast, 'definition', 'identifier')
-    var definitionsByUrl = new Index(ast, 'definition', 'url')
+  function transform(tree) {
+    var definitionsById = new Index(tree, 'definition', 'identifier')
+    var definitionsByUrl = new Index(tree, 'definition', 'url')
     var definitions = []
     var hosts = Object.create(null)
 
-    postorder(ast)
+    postorder(tree)
 
-    push.apply(ast.children, definitions)
+    push.apply(tree.children, definitions)
 
     function postorder(node) {
       var nodes
