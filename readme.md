@@ -3,14 +3,15 @@
 [![Build][build-badge]][build]
 [![Coverage][coverage-badge]][coverage]
 [![Downloads][downloads-badge]][downloads]
-[![Chat][chat-badge]][chat]
+[![Size][size-badge]][size]
 [![Sponsors][sponsors-badge]][collective]
 [![Backers][backers-badge]][collective]
+[![Chat][chat-badge]][chat]
 
-Change links and images to be references with separate definitions with
-[**remark**][remark].
+[**remark**][remark] plugin to change links and images to references with
+separate definitions.
 
-## Installation
+## Install
 
 [npm][]:
 
@@ -18,7 +19,7 @@ Change links and images to be references with separate definitions with
 npm install remark-defsplit
 ```
 
-## Usage
+## Use
 
 Say we have the following file, `example.md`.
 
@@ -55,7 +56,7 @@ Now, running `node example` yields:
 
 ### `remark().use(defsplit[, options])`
 
-Transform the tree to replaces links and images with references and definitions.
+Change links and images to references with separate definitions.
 
 ###### `options.id`
 
@@ -72,17 +73,19 @@ or `Array.<String>`, default: `[]`).
 
 ## Contribute
 
-See [`contributing.md` in `remarkjs/remark`][contributing] for ways to get
-started.
+See [`contributing.md`][contributing] in [`remarkjs/.github`][health] for ways
+to get started.
+See [`support.md`][support] for ways to get help.
 
-This organisation has a [Code of Conduct][coc].  By interacting with this
-repository, organisation, or community you agree to abide by its terms.
+This project has a [Code of Conduct][coc].
+By interacting with this repository, organisation, or community you agree to
+abide by its terms.
 
 ## License
 
 [MIT][license] © Eugene Sharygin
 
-[build-badge]: https://img.shields.io/travis/remarkjs/remark-defsplit.svg
+[build-badge]: https://img.shields.io/travis/remarkjs/remark-defsplit/master.svg
 
 [build]: https://travis-ci.org/remarkjs/remark-defsplit
 
@@ -94,9 +97,9 @@ repository, organisation, or community you agree to abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/remark-defsplit
 
-[chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
+[size-badge]: https://img.shields.io/bundlephobia/minzip/remark-defsplit.svg
 
-[chat]: https://spectrum.chat/unified/remark
+[size]: https://bundlephobia.com/result?p=remark-defsplit
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -104,13 +107,21 @@ repository, organisation, or community you agree to abide by its terms.
 
 [collective]: https://opencollective.com/unified
 
-[license]: license
+[chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
+
+[chat]: https://spectrum.chat/unified/remark
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[contributing]: https://github.com/remarkjs/remark/blob/master/contributing.md
+[health]: https://github.com/remarkjs/.github
 
-[coc]: https://github.com/remarkjs/remark/blob/master/code-of-conduct.md
+[contributing]: https://github.com/remarkjs/.github/blob/master/contributing.md
+
+[support]: https://github.com/remarkjs/.github/blob/master/support.md
+
+[coc]: https://github.com/remarkjs/.github/blob/master/code-of-conduct.md
+
+[license]: license
 
 [remark]: https://github.com/remarkjs/remark
 
