@@ -3,3 +3,13 @@ node_js:
   - lts/dubnium
   - node
 after_script: bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: lbXTE/uTYk5MLpPL1aJUiVWzcoCx52QNYB9lTxZLMjUFDu9cpeXwYq75oSTmbmR7XFBbLiY8sGbc/iweyGAouTSj3PLSDlO9pMOgYQ+iITUf7PvFHfn4yG8glRpyM/x8XEK5oIpVjezQ1NnwIGkKfRDHsQCdrIMsTQWP10nb+UgW8v20C+4K37okOukoJOFZUwea7ovx1ZO+OPVoDlO1RGttY1WrqX/9YXu4NdDOfj0FycET4Wx+PHoZkTr272sgtB0fesPqQuPLIyyXIWrFPzwwpkUQF6oJXxffLq85etXd7Q/DcHr2jvHHdJGPQ9ihMTy+9gMhj1ju7VLr+abOR45dWG43vPny/V7XsYDeRhIqhuDlK/w/T/JRqGNS2yyM3pgkBNC/Xq+I9P49SsifVzkpNkDhVcia7sPeVcTBYpqB30zkbac6sPwth3TF5pTv/0+zYDcFpCw0zrdsDON+5IBKQsGistgpO/mUmeVmLMP0nCN3ABZUB121MnL+lYkKnZFUyZLx55Im+RPQoNZcwB89NL8V0YkH5Zd3D5HFp76Z/dNC+TQ4Z12xgcXP2RB2psjT9zAVaxXCzoq1wzM2eQh8VSrrQ+JO62wEllb1ctwcT5zHDWi4nKltkv6ufW6YY1Bj2hP7nTsYIsVRL5hTVae5Kovns9izbIynf90yXCo=
+  file:
+    - 'remark-defsplit.js'
+    - 'remark-defsplit.min.js'
+  on:
+    tags: true

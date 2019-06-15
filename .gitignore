@@ -3,4 +3,6 @@
 .nyc_output/
 coverage/
 node_modules/
+remark-defsplit.js
+remark-defsplit.min.js
 yarn.lock
