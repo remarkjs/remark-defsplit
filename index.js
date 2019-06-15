@@ -1,6 +1,6 @@
 'use strict'
 
-var url = require('url')
+var URL = require('url').URL
 var path = require('path')
 var Index = require('unist-util-index')
 
@@ -97,6 +97,11 @@ function defsplit(opts) {
 }
 
 function urlHost(link) {
-  var host = url.parse(link).host
+  var host
+
+  try {
+    host = new URL(link).host
+  } catch (error) {}
+
   return host ? path.parse(host).name : ''
 }
