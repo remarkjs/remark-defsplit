@@ -9,8 +9,8 @@ var push = [].push
 
 module.exports = defsplit
 
-function defsplit(opts) {
-  var id = (opts || {}).id || []
+function defsplit(options) {
+  var id = (options || {}).id || []
   var ids = (typeof id === 'object' && 'length' in id ? id : [id]).map(String)
 
   return transform

@@ -6,7 +6,7 @@ var test = require('tape')
 var remark = require('remark')
 var defsplit = require('..')
 
-test('remark-defsplit', function(t) {
+test('remark-defsplit', function (t) {
   t.equal(
     process(readInput('wonders/wonders')),
     readOutput('wonders/wonders'),
@@ -78,11 +78,8 @@ test('remark-defsplit', function(t) {
   t.end()
 })
 
-function process(src, opts) {
-  return remark()
-    .use(defsplit, opts)
-    .processSync(src)
-    .toString()
+function process(src, options) {
+  return remark().use(defsplit, options).processSync(src).toString()
 }
 
 function readInput(fp) {
