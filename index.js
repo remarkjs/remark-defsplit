@@ -101,7 +101,7 @@ function urlHost(link) {
 
   try {
     host = new URL(link).host
-  } catch (error) {}
+  } catch (_) {}
 
   return host ? path.parse(host).name : ''
 }
