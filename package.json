@@ -25,6 +25,10 @@
   ],
   "repository": "remarkjs/remark-defsplit",
   "bugs": "https://github.com/remarkjs/remark-defsplit/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
   "author": "Eugene Sharygin <eush77@gmail.com>",
   "contributors": [
     "Eugene Sharygin <eush77@gmail.com>",
