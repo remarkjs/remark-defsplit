@@ -24,7 +24,7 @@ npm install remark-defsplit
 Say we have the following file, `example.md`.
 
 ```markdown
-[![Build Status](https://travis-ci.org/remarkjs/remark-defsplit.svg?branch=master)](https://travis-ci.org/remarkjs/remark-defsplit)
+[![Build Status](https://travis-ci.org/remarkjs/remark-defsplit.svg?branch=main)](https://travis-ci.org/remarkjs/remark-defsplit)
 ```
 
 And our script, `example.js`, looks as follows:
@@ -47,7 +47,7 @@ Now, running `node example` yields:
 ```markdown
 [![Build Status][travis-badge]][travis]
 
-[travis-badge]: https://travis-ci.org/remarkjs/remark-defsplit.svg?branch=master
+[travis-badge]: https://travis-ci.org/remarkjs/remark-defsplit.svg?branch=main
 
 [travis]: https://travis-ci.org/remarkjs/remark-defsplit
 ```
@@ -91,7 +91,7 @@ abide by its terms.
 
 [MIT][license] © Eugene Sharygin
 
-[build-badge]: https://img.shields.io/travis/remarkjs/remark-defsplit/master.svg
+[build-badge]: https://img.shields.io/travis/remarkjs/remark-defsplit/main.svg
 
 [build]: https://travis-ci.org/remarkjs/remark-defsplit
 
@@ -121,11 +121,11 @@ abide by its terms.
 
 [health]: https://github.com/remarkjs/.github
 
-[contributing]: https://github.com/remarkjs/.github/blob/master/contributing.md
+[contributing]: https://github.com/remarkjs/.github/blob/HEAD/contributing.md
 
-[support]: https://github.com/remarkjs/.github/blob/master/support.md
+[support]: https://github.com/remarkjs/.github/blob/HEAD/support.md
 
-[coc]: https://github.com/remarkjs/.github/blob/master/code-of-conduct.md
+[coc]: https://github.com/remarkjs/.github/blob/HEAD/code-of-conduct.md
 
 [license]: license
 

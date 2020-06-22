@@ -2,7 +2,7 @@
 
 # wonders
 
-[![Build Status](https://travis-ci.org/magician/wonders.svg?branch=master)](https://travis-ci.org/magician/wonders) [![Dependency Status][david-badge]][david]
+[![Build Status](https://travis-ci.org/magician/wonders.svg?branch=main)](https://travis-ci.org/magician/wonders) [![Dependency Status][david-badge]][david]
 
 Make wonders.
 

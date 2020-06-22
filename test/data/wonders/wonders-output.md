@@ -9,7 +9,7 @@
 
 Make wonders.
 
-[travis-ci-1]: https://travis-ci.org/magician/wonders.svg?branch=master
+[travis-ci-1]: https://travis-ci.org/magician/wonders.svg?branch=main
 [travis-ci-2]: https://travis-ci.org/magician/wonders
 [david]: https://david-dm.org/magician/wonders
 [david-badge]: https://david-dm.org/magician/wonders.png
