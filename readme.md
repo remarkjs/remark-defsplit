@@ -97,9 +97,9 @@ abide by its terms.
 
 [MIT][license] © Eugene Sharygin
 
-[build-badge]: https://img.shields.io/travis/remarkjs/remark-defsplit/main.svg
+[build-badge]: https://github.com/remarkjs/remark-defsplit/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/remarkjs/remark-defsplit
+[build]: https://github.com/remarkjs/remark-defsplit/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/remarkjs/remark-defsplit.svg
 
