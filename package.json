@@ -50,7 +50,7 @@
     "remark-preset-wooorm": "^8.0.0",
     "tape": "^5.0.0",
     "tinyify": "^3.0.0",
-    "xo": "^0.33.0"
+    "xo": "^0.37.0"
   },
   "scripts": {
     "format": "remark . -qfo --ignore-pattern test/ && prettier . -w --loglevel warn && xo --fix",
@@ -79,7 +79,9 @@
     "prettier": true,
     "esnext": false,
     "rules": {
-      "unicorn/no-fn-reference-in-iterator": "off",
+      "unicorn/explicit-length-check": "off",
+      "unicorn/no-array-callback-reference": "off",
+      "unicorn/prefer-math-trunc": "off",
       "unicorn/prefer-optional-catch-binding": "off"
     }
   },
