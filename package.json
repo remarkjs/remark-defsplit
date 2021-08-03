@@ -42,7 +42,7 @@
     "index.js"
   ],
   "dependencies": {
-    "unist-util-index": "^2.0.0"
+    "unist-util-index": "^3.0.0"
   },
   "devDependencies": {
     "c8": "^7.0.0",

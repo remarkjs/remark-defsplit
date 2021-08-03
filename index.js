@@ -1,6 +1,6 @@
 import {URL} from 'url'
 import path from 'path'
-import Index from 'unist-util-index'
+import {Index} from 'unist-util-index'
 
 var concat = [].concat
 var push = [].push
@@ -12,8 +12,8 @@ export default function remarkDefsplit(options) {
   return transform
 
   function transform(tree) {
-    var definitionsById = new Index(tree, 'definition', 'identifier')
-    var definitionsByUrl = new Index(tree, 'definition', 'url')
+    var definitionsById = new Index('identifier', tree, 'definition')
+    var definitionsByUrl = new Index('url', tree, 'definition')
     var definitions = []
     var hosts = Object.create(null)
 
