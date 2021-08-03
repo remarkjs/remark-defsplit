@@ -1,3 +1,7 @@
+/**
+ * @typedef {import('../index.js').Options} Options
+ */
+
 import fs from 'fs'
 import path from 'path'
 import test from 'tape'
@@ -76,14 +80,27 @@ test('remarkDefsplit', (t) => {
   t.end()
 })
 
+/**
+ * @param {string} src
+ * @param {Options} [options]
+ * @returns {string}
+ */
 function process(src, options) {
   return remark().use(remarkDefsplit, options).processSync(src).toString()
 }
 
+/**
+ * @param {string} fp
+ * @returns {string}
+ */
 function readInput(fp) {
-  return fs.readFileSync(path.join('test', 'data', fp + '.md'))
+  return String(fs.readFileSync(path.join('test', 'data', fp + '.md')))
 }
 
+/**
+ * @param {string} fp
+ * @returns {string}
+ */
 function readOutput(fp) {
   return remark()
     .processSync(readInput(fp + '-output'))
