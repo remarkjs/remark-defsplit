@@ -35,6 +35,9 @@
     "Eugene Sharygin <eush77@gmail.com>",
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
+  "sideEffects": false,
+  "type": "module",
+  "main": "index.js",
   "files": [
     "index.js"
   ],
@@ -68,6 +71,8 @@
     "prettier": true,
     "esnext": false,
     "rules": {
+      "no-var": "off",
+      "prefer-arrow-callback": "off",
       "unicorn/explicit-length-check": "off",
       "unicorn/no-array-callback-reference": "off",
       "unicorn/prefer-math-trunc": "off",

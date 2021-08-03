@@ -1,15 +1,11 @@
-'use strict'
-
-var URL = require('url').URL
-var path = require('path')
-var Index = require('unist-util-index')
+import {URL} from 'url'
+import path from 'path'
+import Index from 'unist-util-index'
 
 var concat = [].concat
 var push = [].push
 
-module.exports = defsplit
-
-function defsplit(options) {
+export default function remarkDefsplit(options) {
   var id = (options || {}).id || []
   var ids = (typeof id === 'object' && 'length' in id ? id : [id]).map(String)
 

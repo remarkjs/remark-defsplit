@@ -1,10 +1,8 @@
-'use strict'
-
-var fs = require('fs')
-var path = require('path')
-var test = require('tape')
-var remark = require('remark')
-var defsplit = require('..')
+import fs from 'fs'
+import path from 'path'
+import test from 'tape'
+import remark from 'remark'
+import defsplit from '../index.js'
 
 test('remark-defsplit', function (t) {
   t.equal(
@@ -83,7 +81,7 @@ function process(src, options) {
 }
 
 function readInput(fp) {
-  return fs.readFileSync(path.join(__dirname, 'data', fp + '.md'))
+  return fs.readFileSync(path.join('test', 'data', fp + '.md'))
 }
 
 function readOutput(fp) {
