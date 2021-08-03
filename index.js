@@ -2,35 +2,34 @@ import {URL} from 'url'
 import path from 'path'
 import {Index} from 'unist-util-index'
 
-var concat = [].concat
-var push = [].push
-
 export default function remarkDefsplit(options) {
-  var id = (options || {}).id || []
-  var ids = (typeof id === 'object' && 'length' in id ? id : [id]).map(String)
+  const id = (options || {}).id || []
+  const ids = (typeof id === 'object' && 'length' in id ? id : [id]).map((d) =>
+    String(d)
+  )
 
   return transform
 
   function transform(tree) {
-    var definitionsById = new Index('identifier', tree, 'definition')
-    var definitionsByUrl = new Index('url', tree, 'definition')
-    var definitions = []
-    var hosts = Object.create(null)
+    const definitionsById = new Index('identifier', tree, 'definition')
+    const definitionsByUrl = new Index('url', tree, 'definition')
+    const definitions = []
+    const hosts = Object.create(null)
 
     postorder(tree)
 
-    push.apply(tree.children, definitions)
+    tree.children.push(...definitions)
 
     function postorder(node) {
-      var nodes
+      let nodes
 
       if (node.children) {
-        node.children = concat.apply([], node.children.map(postorder))
+        node.children = node.children.flatMap((node) => postorder(node))
       }
 
       if (node.type === 'definition' || node.type === 'heading') {
         nodes = definitions.concat(node)
-        definitions = []
+        definitions.length = 0
         return nodes
       }
 
@@ -47,10 +46,15 @@ export default function remarkDefsplit(options) {
     }
 
     function identifier(link, title) {
-      var identifier = null
-      var found = definitionsByUrl.get(link).some(some)
-      var host
-      var definition
+      let identifier = null
+      const found = definitionsByUrl.get(link).some((def) => {
+        if (def.title === title) {
+          identifier = def.identifier
+          return true
+        }
+
+        return false
+      })
 
       if (found) {
         return identifier
@@ -59,18 +63,20 @@ export default function remarkDefsplit(options) {
       identifier = ids.shift()
 
       if (!identifier) {
-        host = urlHost(link)
+        const host = urlHost(link)
+        // `Math.trunc` doesn’t work.
+        /* eslint-disable-next-line unicorn/prefer-math-trunc */
         hosts[host] |= 0
 
         do {
           identifier = (host ? host + '-' : '') + ++hosts[host]
-        } while (definitionsById.get(identifier).length)
+        } while (definitionsById.get(identifier).length > 0)
       }
 
-      definition = {
+      const definition = {
         type: 'definition',
-        identifier: identifier,
-        title: title,
+        identifier,
+        title,
         url: link
       }
 
@@ -79,25 +85,16 @@ export default function remarkDefsplit(options) {
       definitionsByUrl.add(definition)
 
       return identifier
-
-      function some(def) {
-        if (def.title === title) {
-          identifier = def.identifier
-          return true
-        }
-
-        return false
-      }
     }
   }
 }
 
 function urlHost(link) {
-  var host
+  let host
 
   try {
     host = new URL(link).host
-  } catch (_) {}
+  } catch {}
 
   return host ? path.parse(host).name : ''
 }

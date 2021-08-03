@@ -4,7 +4,7 @@ import test from 'tape'
 import {remark} from 'remark'
 import remarkDefsplit from '../index.js'
 
-test('remarkDefsplit', function (t) {
+test('remarkDefsplit', (t) => {
   t.equal(
     process(readInput('wonders/wonders')),
     readOutput('wonders/wonders'),
