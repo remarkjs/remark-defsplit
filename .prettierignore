@@ -1,5 +1,2 @@
 coverage/
-remark-defsplit.js
-remark-defsplit.min.js
-*.json
 *.md
