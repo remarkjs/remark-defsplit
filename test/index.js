@@ -1,10 +1,10 @@
 import fs from 'fs'
 import path from 'path'
 import test from 'tape'
-import remark from 'remark'
-import defsplit from '../index.js'
+import {remark} from 'remark'
+import remarkDefsplit from '../index.js'
 
-test('remark-defsplit', function (t) {
+test('remarkDefsplit', function (t) {
   t.equal(
     process(readInput('wonders/wonders')),
     readOutput('wonders/wonders'),
@@ -77,7 +77,7 @@ test('remark-defsplit', function (t) {
 })
 
 function process(src, options) {
-  return remark().use(defsplit, options).processSync(src).toString()
+  return remark().use(remarkDefsplit, options).processSync(src).toString()
 }
 
 function readInput(fp) {
