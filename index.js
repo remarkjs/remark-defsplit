@@ -107,9 +107,9 @@ export default function remarkDefsplit(options = {}) {
 
           host = host ? path.parse(host).name : ''
 
-          // `Math.trunc` doesn’t work.
-          /* eslint-disable-next-line unicorn/prefer-math-trunc */
-          hosts[host] |= 0
+          if (!(host in hosts)) {
+            hosts[host] = 0
+          }
 
           do {
             identifier = (host ? host + '-' : '') + ++hosts[host]
