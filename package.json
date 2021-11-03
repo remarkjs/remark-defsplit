@@ -13,16 +13,9 @@
     "definition",
     "destination",
     "extract",
-    "full",
-    "http",
-    "https",
     "image",
     "link",
-    "reference",
-    "split",
-    "target",
-    "uri",
-    "url"
+    "reference"
   ],
   "repository": "remarkjs/remark-defsplit",
   "bugs": "https://github.com/remarkjs/remark-defsplit/issues",
