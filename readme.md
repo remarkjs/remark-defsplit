@@ -64,17 +64,17 @@ In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 npm install remark-defsplit
 ```
 
-In Deno with [Skypack][]:
+In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import remarkDefsplit from 'https://cdn.skypack.dev/remark-defsplit@4?dts'
+import remarkDefsplit from 'https://esm.sh/remark-defsplit@4'
 ```
 
-In browsers with [Skypack][]:
+In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import remarkDefsplit from 'https://cdn.skypack.dev/remark-defsplit@4?min'
+  import remarkDefsplit from 'https://esm.sh/remark-defsplit@4?bundle'
 </script>
 ```
 
@@ -218,7 +218,7 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[skypack]: https://www.skypack.dev
+[esmsh]: https://esm.sh
 
 [health]: https://github.com/remarkjs/.github
 
