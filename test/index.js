@@ -2,113 +2,60 @@
  * @typedef {import('../index.js').Options} Options
  */
 
-import fs from 'node:fs'
-import path from 'node:path'
-import test from 'tape'
+import assert from 'node:assert/strict'
+import fs from 'node:fs/promises'
+import process from 'node:process'
+import test from 'node:test'
 import {remark} from 'remark'
 import remarkDefsplit from '../index.js'
 
-test('remarkDefsplit', (t) => {
-  t.equal(
-    process(readInput('wonders/wonders')),
-    readOutput('wonders/wonders'),
-    'extracts destinations'
-  )
+test('fixtures', async function (t) {
+  const base = new URL('fixtures/', import.meta.url)
+  const folders = await fs.readdir(base)
 
-  t.equal(
-    process(readOutput('wonders/wonders')),
-    readOutput('wonders/wonders'),
-    'idempotence'
-  )
+  let index = -1
 
-  t.equal(
-    process(readInput('clash/different-sections')),
-    readOutput('clash/different-sections'),
-    'extracted definitions in different sections do not clash'
-  )
+  while (++index < folders.length) {
+    const folder = folders[index]
 
-  t.equal(
-    process(readInput('clash/other-definitions')),
-    readOutput('clash/other-definitions'),
-    'new-born definitions don’t clash with existing identifiers'
-  )
+    if (folder.charAt(0) === '.') continue
 
-  t.equal(
-    process(readInput('clash/reuse')),
-    readOutput('clash/reuse'),
-    'identifier reuses existing identifiers'
-  )
+    await t.test(folder, async function () {
+      const folderUrl = new URL(folder + '/', base)
+      const inputUrl = new URL('input.md', folderUrl)
+      const outputUrl = new URL('output.md', folderUrl)
+      const configUrl = new URL('config.json', folderUrl)
 
-  t.equal(
-    process(readInput('clash/reuse-title-mismatch')),
-    readOutput('clash/reuse-title-mismatch'),
-    'identifier reuses existing identifiers does not clash with titles'
-  )
+      const input = String(await fs.readFile(inputUrl))
 
-  t.equal(
-    process(readInput('clash/object-prototype-props')),
-    readOutput('clash/object-prototype-props'),
-    'identifier doesn’t clash with Object.prototype property names'
-  )
+      /** @type {Options | undefined} */
+      let config
+      /** @type {string} */
+      let output
 
-  t.equal(
-    process(readInput('options/id-multi'), {id: ['travis-badge', 'travis']}),
-    readOutput('options/id-multi'),
-    '`options.id` works with array of values'
-  )
+      try {
+        config = JSON.parse(String(await fs.readFile(configUrl)))
+      } catch {}
 
-  t.equal(
-    process(readInput('options/id-single'), {id: 'travis-ci-0'}),
-    readOutput('options/id-single'),
-    '`options.id` works with a single value'
-  )
+      // @ts-expect-error: to do: fix type.
+      const proc = remark().use(remarkDefsplit, config)
 
-  t.equal(
-    process(readInput('options/object-prototype-props'), {
-      id: ['__proto__', 'constructor']
-    }),
-    readOutput('options/object-prototype-props'),
-    '`options.id` works with Object.prototype property names'
-  )
+      const actual = String(await proc.process(input))
 
-  t.equal(
-    process(readInput('local/example')),
-    readOutput('local/example'),
-    'should support links to local things'
-  )
+      try {
+        if ('UPDATE' in process.env) {
+          throw new Error('Updating…')
+        }
 
-  t.end()
+        output = String(await fs.readFile(outputUrl))
+      } catch {
+        output = actual
+        await fs.writeFile(outputUrl, actual)
+      }
+
+      const expected = String(await remark().process(output))
+
+      assert.equal(actual, expected)
+    })
+  }
 })
-
-/**
- * @param {string} src
- * @param {Options} [options]
- * @returns {string}
- */
-function process(src, options) {
-  return (
-    remark()
-      // @ts-expect-error: to do: remove when refactor.
-      .use(remarkDefsplit, options)
-      .processSync(src)
-      .toString()
-  )
-}
-
-/**
- * @param {string} fp
- * @returns {string}
- */
-function readInput(fp) {
-  return String(fs.readFileSync(path.join('test', 'data', fp + '.md')))
-}
-
-/**
- * @param {string} fp
- * @returns {string}
- */
-function readOutput(fp) {
-  return remark()
-    .processSync(readInput(fp + '-output'))
-    .toString()
-}
