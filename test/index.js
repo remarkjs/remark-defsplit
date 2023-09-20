@@ -1,5 +1,5 @@
 /**
- * @typedef {import('../index.js').Options} Options
+ * @typedef {import('remark-defsplit').Options} Options
  */
 
 import assert from 'node:assert/strict'
@@ -7,11 +7,11 @@ import fs from 'node:fs/promises'
 import process from 'node:process'
 import test from 'node:test'
 import {remark} from 'remark'
-import remarkDefsplit from '../index.js'
+import remarkDefsplit from 'remark-defsplit'
 
 test('remarkDefsplit', async function (t) {
   await t.test('should expose the public api', async function () {
-    assert.deepEqual(Object.keys(await import('../index.js')).sort(), [
+    assert.deepEqual(Object.keys(await import('remark-defsplit')).sort(), [
       'default'
     ])
   })
