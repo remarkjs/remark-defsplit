@@ -62,14 +62,14 @@ npm install remark-defsplit
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import remarkDefsplit from 'https://esm.sh/remark-defsplit@4'
+import remarkDefsplit from 'https://esm.sh/remark-defsplit@5'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import remarkDefsplit from 'https://esm.sh/remark-defsplit@4?bundle'
+  import remarkDefsplit from 'https://esm.sh/remark-defsplit@5?bundle'
 </script>
 ```
 

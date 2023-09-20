@@ -1,6 +1,6 @@
 {
   "name": "remark-defsplit",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "remark plugin to change links and images to references with separate definitions",
   "license": "MIT",
   "keywords": [
