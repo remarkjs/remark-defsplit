@@ -86,7 +86,13 @@ test('remarkDefsplit', (t) => {
  * @returns {string}
  */
 function process(src, options) {
-  return remark().use(remarkDefsplit, options).processSync(src).toString()
+  return (
+    remark()
+      // @ts-expect-error: to do: remove when refactor.
+      .use(remarkDefsplit, options)
+      .processSync(src)
+      .toString()
+  )
 }
 
 /**
