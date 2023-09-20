@@ -53,9 +53,7 @@ test('fixtures', async function (t) {
         await fs.writeFile(outputUrl, actual)
       }
 
-      const expected = String(await remark().process(output))
-
-      assert.equal(actual, expected)
+      assert.equal(actual, String(output))
     })
   }
 })

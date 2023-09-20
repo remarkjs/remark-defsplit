@@ -1,6 +1,7 @@
 [![npm][nodei-1]][npmjs-1]
 
 [nodei-1]: https://nodei.co/npm/wonders.png
+
 [npmjs-1]: https://npmjs.com/package/wonders
 
 # wonders
@@ -10,8 +11,11 @@
 Make wonders.
 
 [travis-ci-1]: https://travis-ci.org/magician/wonders.svg?branch=main
+
 [travis-ci-2]: https://travis-ci.org/magician/wonders
+
 [david]: https://david-dm.org/magician/wonders
+
 [david-badge]: https://david-dm.org/magician/wonders.png
 
 ## Usage
