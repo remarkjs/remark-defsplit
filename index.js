@@ -21,7 +21,7 @@ import {Index} from 'unist-util-index'
  */
 export default function remarkDefsplit(options = {}) {
   const id = options.id || []
-  const ids = (Array.isArray(id) ? id : [id]).map((d) => String(d))
+  const ids = (Array.isArray(id) ? id : [id]).map(String)
 
   return (tree) => {
     const definitionsById = new Index('identifier', tree, 'definition')
